@@ -14,7 +14,6 @@ def search_orphanet(keyword, search_type='Gen'):
             }
 
     r = post(search_url, search_data)
-
     if r.status_code == 200:
         return r.text
     else:
@@ -26,5 +25,8 @@ def get_first_result(orphanet_search):
     Returns the HTML link for the first result of a search
     """
     soup = BeautifulSoup(orphanet_search, 'html.parser')
-    first = soup.find_all('div', class_="blockResults")[0]
-    return first.a.get('href')
+    first = soup.find_all('div', class_="blockResults")
+    if not first:
+        return ''
+    else:
+        return first[0].a.get('href')+"\t"+first[0].a.getText()

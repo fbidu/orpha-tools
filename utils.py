@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 from requests import post
 from bs4 import BeautifulSoup
+from biomart import BiomartServer
 
 def search_orphanet(keyword, search_type='Gen'):
     """
@@ -14,7 +15,6 @@ def search_orphanet(keyword, search_type='Gen'):
             }
 
     r = post(search_url, search_data)
-
     if r.status_code == 200:
         return r.text
     else:
@@ -26,5 +26,38 @@ def get_first_result(orphanet_search):
     Returns the HTML link for the first result of a search
     """
     soup = BeautifulSoup(orphanet_search, 'html.parser')
-    first = soup.find_all('div', class_="blockResults")[0]
-    return first.a.get('href')
+    first = soup.find_all('div', class_="blockResults")
+    if not first:
+        return ''
+    else:
+        return first[0].a.get('href')+"\t"+first[0].a.getText()
+
+
+def convert_refseq_to_gene_symbol(keyword_list):
+    """
+    Convert Refseq ID to Gene Symbol and description using Biomart
+    """
+    print("\nConverting Refseq to Gene Symbol\n")
+    server = BiomartServer( "http://mar2017.archive.ensembl.org/biomart" )
+    #server.verbose = True
+    #server.show_databases()
+    #server.show_datasets()
+
+
+    hsapiens = server.datasets['hsapiens_gene_ensembl']
+    #hsapiens.show_filters()
+    #hsapiens.show_attributes()
+
+
+    # run a search with custom filters and attributes (no header)
+    response = hsapiens.search({
+    'filters': {
+        'refseq_mrna': keyword_list
+    },
+    'attributes': [
+        'external_gene_name', 'description'
+    ]   
+    })
+    print("\nFinished conversion\n")
+
+    return response

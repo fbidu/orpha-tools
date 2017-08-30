@@ -1,9 +1,13 @@
 # -*- encoding: utf-8 -*-
+"""
+The main module
+"""
 import argparse
 import utils
 
 
 def main():
+
     ap = argparse.ArgumentParser()
     ap.add_argument('--input')
     ap.add_argument('--out')

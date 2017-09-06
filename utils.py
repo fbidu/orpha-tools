@@ -40,7 +40,7 @@ def convert_refseq_to_gene_symbol(keyword_list):
     """
     Convert Refseq ID to Gene Symbol and description using Biomart
     """
-    print("\nConverting Refseq to Gene Symbol\n")
+    #print("\nConverting Refseq to Gene Symbol\n")
     server = BiomartServer( "http://mar2017.archive.ensembl.org/biomart" )
     #server.verbose = True
     #server.show_databases()
@@ -61,6 +61,5 @@ def convert_refseq_to_gene_symbol(keyword_list):
         'external_gene_name', 'description'
     ]   
     })
-    print("\nFinished conversion\n")
 
     return response

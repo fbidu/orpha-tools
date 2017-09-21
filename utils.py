@@ -55,10 +55,10 @@ def convert_refseq_to_gene_symbol(keyword_list):
     # run a search with custom filters and attributes (no header)
     response = hsapiens.search({
     'filters': {
-        'refseq_mrna': keyword_list
+        'entrezgene': keyword_list
     },
     'attributes': [
-        'external_gene_name', 'description'
+        'external_gene_name', 'description', 'entrezgene'
     ]   
     })
 

@@ -42,7 +42,6 @@ def main():
             description = line.split("\t")[1]
             entrez = line.split("\t")[2]
             hyb_db_gene[entrez] = [hyb_db[entrez],gene,description]
-        break
     
     output = open(args.output, 'w')
 

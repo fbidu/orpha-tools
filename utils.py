@@ -37,7 +37,6 @@ def get_first_result(orphanet_search):
     else:
         return first[0].a.get('href')+"\t"+first[0].a.getText()
 
-def convert_refseq_to_gene_symbol(keyword_list):
 def convert_entrez_to_gene_symbol(keyword_list):
     """
     Convert Refseq ID to Gene Symbol and description using Biomart

@@ -25,12 +25,13 @@ def main():
     biogrid_db = utils.load_biogrid_genes(args.biogrid)
 
     i = 0
+    hyb_db_list = sorted(hyb_db.key())
     while i <= len(hyb_db):
         uplimit = i+500
-        if uplimit > len(hyb_db):
-            uplimit = len(hyb_db)
+        if uplimit > len(hyb_db_list):
+            uplimit = len(hyb_db_list)
     	
-        tmp_list = hyb_db.iloc[i:uplimit]
+        tmp_list = hyb_db_list[i:uplimit]
         gene_symbol_list = utils.convert_entrez_to_gene_symbol(tmp_list)
         i=i+500
         print(str(i))

@@ -83,4 +83,10 @@ def load_hyb_db_genes(hyb_db):
     return hyb_db
 
 def  load_biogrid_genes(biogrid):
-    
+    biogrid_db = {}
+    biogrid_file = open(biogrid).read().splitlines()
+    for line in biogrid_file:
+        fields = line.split("\t")
+        biogrid_db[fields[1]]=fields[2]
+        biogrid_db[fields[2]]=fields[1]
+    return biogrid_db

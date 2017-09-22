@@ -9,6 +9,7 @@ def main():
 
     orpha_genes = {}
     hyb_db = {} 
+    hyb_db_gene = {}
     biogrid_db = {}
 
     ap = argparse.ArgumentParser()
@@ -40,16 +41,25 @@ def main():
             gene = line.split("\t")[0]
             description = line.split("\t")[1]
             entrez = line.split("\t")[2]
-            hyb_db[entrez] = [hyb_db[entrez],gene,description]
-
+            hyb_db_gene[entrez] = [hyb_db[entrez],gene,description]
+        break
+    
     output = open(args.output, 'w')
 
-    for entrez in hyb_db:
+    for entrez in hyb_db_gene:
         bio = ""
-        if hyb_db[entrez][1] in orpha_genes:
-            if hyb_db[entrez][0] == biogrid_db[entrez]:
+        if hyb_db_gene[entrez][1] in orpha_genes:
+            if hyb_db_gene[entrez][0] == biogrid_db[entrez]:
                 bio = "*"
-            output.write(bio+"\t"+entrez+"\t"+hyb_db[entrez][0]+"\t"+hyb_db[entrez][1]+"\t"+hyb_db[hyb_db[entrez][0]][1]+"\t"+hyb_db[entrez][2]+"\t"+hyb_db[hyb_db[entrez][0]][1]+"\t"+orpha_genes[hyb_db[entrez][1]][0]+"\t"+orpha_genes[hyb_db[entrez][1]][1]+"\thttp://www.orpha.net/consor/cgi-bin/Disease_Search_Simple.php?lng=EN&Disease_Disease_Search_diseaseGroup="+orpha_genes[hyb_db[entrez][1]][0]+"&Disease_Disease_Search_diseaseType=ORPHA\n")
+            output.write(bio +"\t")
+            output.write(entrez+"\t")
+            output.write(hyb_db[entrez][0]+"\t")
+            output.write(hyb_db[entrez][1]+"\t")
+            output.write(hyb_db[hyb_db[entrez][0]][1]+"\t")
+            output.write(hyb_db[entrez][2]+"\t")
+            output.write(hyb_db[hyb_db[entrez][0]][1]+"\t")
+            output.write(orpha_genes[hyb_db[entrez][1]][0]+"\t")
+            output.write(orpha_genes[hyb_db[entrez][1]][1]+"\thttp://www.orpha.net/consor/cgi-bin/Disease_Search_Simple.php?lng=EN&Disease_Disease_Search_diseaseGroup="+orpha_genes[hyb_db[entrez][1]][0]+"&Disease_Disease_Search_diseaseType=ORPHA\n")
     output.close()
 
 if __name__ == '__main__':

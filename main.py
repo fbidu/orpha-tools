@@ -55,11 +55,11 @@ def main():
             output.write(entrez+"\t")
             output.write(hyb_db_gene[entrez][0]+"\t")
             output.write(hyb_db_gene[entrez][1]+"\t")
-            output.write(hyb_db_gene[hyb_db[entrez][0]][1]+"\t")
+            output.write(hyb_db_gene[hyb_db_gene[entrez][0]][1]+"\t")
             output.write(hyb_db_gene[entrez][2]+"\t")
-            output.write(hyb_db_gene[hyb_db[entrez][0]][1]+"\t")
-            output.write(orpha_genes[hyb_db[entrez][1]][0]+"\t")
-            output.write(orpha_genes[hyb_db[entrez][1]][1]+"\thttp://www.orpha.net/consor/cgi-bin/Disease_Search_Simple.php?lng=EN&Disease_Disease_Search_diseaseGroup="+orpha_genes[hyb_db[entrez][1]][0]+"&Disease_Disease_Search_diseaseType=ORPHA\n")
+            output.write(hyb_db_gene[hyb_db_gene[entrez][0]][1]+"\t")
+            output.write(orpha_genes[hyb_db_gene[entrez][1]][0]+"\t")
+            output.write(orpha_genes[hyb_db_gene[entrez][1]][1]+"\thttp://www.orpha.net/consor/cgi-bin/Disease_Search_Simple.php?lng=EN&Disease_Disease_Search_diseaseGroup="+orpha_genes[hyb_db[entrez][1]][0]+"&Disease_Disease_Search_diseaseType=ORPHA\n")
     output.close()
 
 if __name__ == '__main__':

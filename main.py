@@ -25,7 +25,7 @@ def main():
     biogrid_db = utils.load_biogrid_genes(args.biogrid)
 
     i = 0
-    hyb_db_list = sorted(hyb_db.key())
+    hyb_db_list = sorted(hyb_db.keys())
     while i <= len(hyb_db):
         uplimit = i+500
         if uplimit > len(hyb_db_list):

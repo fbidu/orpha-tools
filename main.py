@@ -18,11 +18,11 @@ def main():
     ap.add_argument('--output')
     args = ap.parse_args()
 
-    utils.orpha_genes = load_orpha_genes(args.xml)
+    orpha_genes = utils.load_orpha_genes(args.xml)
 
-    utils.hyb_db = load_hyb_db_genes(args.hyb_db)
+    hyb_db = utils.load_hyb_db_genes(args.hyb_db)
 
-    utils.biogrid_db = load_biogrid_genes(args.biogrid)
+    biogrid_db = utils.load_biogrid_genes(args.biogrid)
 
     i = 0
     while i <= len(hyb_db):

@@ -48,8 +48,9 @@ def main():
     for entrez in hyb_db_gene:
         bio = ""
         if hyb_db_gene[entrez][1] in orpha_genes:
-            if hyb_db_gene[entrez][0] == biogrid_db[entrez]:
-                bio = "*"
+            if entrez in biogrid_db:
+                if hyb_db_gene[entrez][0] == biogrid_db[entrez]:
+                    bio = "*"
             output.write(bio +"\t")
             output.write(entrez+"\t")
             output.write(hyb_db_gene[entrez][0]+"\t")

@@ -73,9 +73,9 @@ def load_orpha_genes(xml):
         orpha_genes[gene.text] = [gene.getparent().getparent().getparent().getparent().find("OrphaNumber").text, gene.getparent().getparent().getparent().getparent().find("Name").text]
     return orpha_genes
 
-def load_hyb_db_genes(hyb_db):
+def load_hyb_db_genes(hyb):
     hyb_db = {}
-    hyb_file = open(hyb_db).read().splitlines()
+    hyb_file = open(hyb).read().splitlines()
     for line in hyb_file:
         fields = line.split(",")
         hyb_db[fields[10]]=fields[11]

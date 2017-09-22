@@ -30,7 +30,7 @@ def main():
         if uplimit > len(hyb_db):
             uplimit = len(hyb_db)
     	
-        tmp_list = lines_list[i:uplimit]
+        tmp_list = hyb_db[i:uplimit]
         gene_symbol_list = utils.convert_entrez_to_gene_symbol(tmp_list)
         i=i+500
         print(str(i))

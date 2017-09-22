@@ -18,11 +18,11 @@ def main():
     ap.add_argument('--output')
     args = ap.parse_args()
 
-    orpha_genes = load_orpha_genes(args.xml)
+    utils.orpha_genes = load_orpha_genes(args.xml)
 
-    hyb_db = load_hyb_db_genes(args.hyb_db)
+    utils.hyb_db = load_hyb_db_genes(args.hyb_db)
 
-    biogrid_db = load_biogrid_genes(args.biogrid)
+    utils.biogrid_db = load_biogrid_genes(args.biogrid)
 
     i = 0
     while i <= len(hyb_db):
@@ -50,6 +50,6 @@ def main():
                 bio = "*"
             output.write(bio+"\t"+entrez+"\t"+hyb_db[entrez][0]+"\t"+hyb_db[entrez][1]+"\t"+hyb_db[hyb_db[entrez][0]][1]+"\t"+hyb_db[entrez][2]+"\t"+hyb_db[hyb_db[entrez][0]][1]+"\t"+orpha_genes[hyb_db[entrez][1]][0]+"\t"+orpha_genes[hyb_db[entrez][1]][1]+"\thttp://www.orpha.net/consor/cgi-bin/Disease_Search_Simple.php?lng=EN&Disease_Disease_Search_diseaseGroup="+orpha_genes[hyb_db[entrez][1]][0]+"&Disease_Disease_Search_diseaseType=ORPHA\n")
     output.close()
-    
+
 if __name__ == '__main__':
     main()

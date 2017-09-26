@@ -10,6 +10,7 @@ def main():
     orpha_genes = {}
     hyb_db = {} 
     hyb_db_gene = {}
+    hyb_db_annotation = {}
     biogrid_db = {}
 
     ap = argparse.ArgumentParser()
@@ -41,7 +42,8 @@ def main():
             gene = line.split("\t")[0]
             description = line.split("\t")[1]
             entrez = line.split("\t")[2]
-            hyb_db_gene[entrez] = [hyb_db[entrez],gene,description]
+            hyb_db_gene[entrez] = hyb_db[entrez]
+            hyb_db_annotation[entrez] = [gene,description]
     
     output = open(args.output, 'w')
 
@@ -49,6 +51,8 @@ def main():
         bio = ""
         if hyb_db_gene[entrez][1] in orpha_genes:
             if entrez in biogrid_db:
+                for inter in hyb_db_gene[entrez]:
+                    if hyb_db_
                 if hyb_db_gene[entrez][0] == biogrid_db[entrez]:
                     bio = "*"
             output.write(bio +"\t")

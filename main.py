@@ -49,7 +49,7 @@ def main():
 
     for entrez in hyb_db_gene:
         bio = ""
-        if hyb_db_gene[entrez][1] in orpha_genes:
+        if hyb_db_annotation[entrez][0] in orpha_genes:
             for hyb_inter in hyb_db_gene[entrez]:
                 if entrez in biogrid_db:
                     for biogrid_inter in biogrid_db[entrez]:

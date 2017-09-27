@@ -68,7 +68,7 @@ def main():
                 if hyb_inter in hyb_db_annotation:
                     output.write(hyb_db_annotation[hyb_inter][1]+"\t")
                 else:
-                output.write("No hit\t")  
+                    output.write("No hit\t")  
                 output.write(orpha_genes[hyb_db_annotation[entrez][0]][0]+"\t")
                 output.write(orpha_genes[hyb_db_annotation[entrez][0]][1]+"\thttp://www.orpha.net/consor/cgi-bin/Disease_Search_Simple.php?lng=EN&Disease_Disease_Search_diseaseGroup="+orpha_genes[hyb_db_annotation[entrez][0]][0]+"&Disease_Disease_Search_diseaseType=ORPHA\n")
     

@@ -6,7 +6,7 @@ from requests import post
 from bs4 import BeautifulSoup
 from biomart import BiomartServer
 from lxml import etree
-
+from collections import defaultdict
 
 def search_orphanet(keyword, search_type='Gen'):
     """
@@ -74,19 +74,19 @@ def load_orpha_genes(xml):
     return orpha_genes
 
 def load_hyb_db_genes(hyb):
-    hyb_db = {}
+    hyb_db = defaultdict(list)
     hyb_file = open(hyb).read().splitlines()
     for line in hyb_file:
         fields = line.split(",")
-        hyb_db[fields[10]]=hyb_db[fields[10]].insert(fields[11])
-        hyb_db[fields[11]]=hyb_db[fields[11]].insert(fields[10])
+        hyb_db[fields[10]]=hyb_db[fields[10]].append(fields[11])
+        hyb_db[fields[11]]=hyb_db[fields[11]].append(fields[10])
     return hyb_db
 
 def  load_biogrid_genes(biogrid):
-    biogrid_db = {}
+    biogrid_db = defaultdict(list)
     biogrid_file = open(biogrid).read().splitlines()
     for line in biogrid_file:
         fields = line.split("\t")
-        biogrid_db[fields[1]]=biogrid_db[fields[1]].insert(fields[2])
-        biogrid_db[fields[2]]=biogrid_db[fields[2]].insert(fields[1])
+        biogrid_db[fields[1]]=biogrid_db[fields[1]].append(fields[2])
+        biogrid_db[fields[2]]=biogrid_db[fields[2]].append(fields[1])
     return biogrid_db

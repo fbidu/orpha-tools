@@ -50,26 +50,27 @@ def main():
     for entrez in hyb_db_gene:
         bio = ""
         if hyb_db_gene[entrez][1] in orpha_genes:
-            if entrez in biogrid_db:
-                for inter in hyb_db_gene[entrez]:
-                    if hyb_db_
-                if hyb_db_gene[entrez][0] == biogrid_db[entrez]:
-                    bio = "*"
-            output.write(bio +"\t")
-            output.write(entrez+"\t")
-            output.write(hyb_db_gene[entrez][0]+"\t")
-            output.write(hyb_db_gene[entrez][1]+"\t")
-            if hyb_db_gene[entrez][0] in hyb_db_gene:
-                output.write(hyb_db_gene[hyb_db_gene[entrez][0]][1]+"\t")
-            else:
-                output.write("No hit\t")
-            output.write(hyb_db_gene[entrez][2]+"\t")
-            if hyb_db_gene[entrez][0] in hyb_db_gene:
-                output.write(hyb_db_gene[hyb_db_gene[entrez][0]][2]+"\t")
-            else:
-                output.write("No hit\t")
-            output.write(orpha_genes[hyb_db_gene[entrez][1]][0]+"\t")
-            output.write(orpha_genes[hyb_db_gene[entrez][1]][1]+"\thttp://www.orpha.net/consor/cgi-bin/Disease_Search_Simple.php?lng=EN&Disease_Disease_Search_diseaseGroup="+orpha_genes[hyb_db_gene[entrez][1]][0]+"&Disease_Disease_Search_diseaseType=ORPHA\n")
+            for hyb_inter in hyb_db_gene[entrez]:
+                if entrez in biogrid_db:
+                    for biogrid_inter in biogrid_db[entrez]:
+                        if hyb_inter == biogrid_inter:
+                            bio = "*"
+                            break
+                output.write(bio +"\t")
+                output.write(entrez+"\t")
+                output.write(hyb_inter+"\t")
+                output.write(hyb_db_annotation[entrez][0]+"\t")
+                if hyb_inter in hyb_db_annotation:
+                    output.write(hyb_db_annotation[hyb_inter][0]+"\t")
+                else:
+                    output.write("No hit\t")
+                output.write(hyb_db_annotation[entrez][1]+"\t")
+                if hyb_inter in hyb_db_annotation:
+                    output.write(hyb_db_annotation[hyb_inter][1]+"\t")
+                else:
+                output.write("No hit\t")  
+                output.write(orpha_genes[hyb_db_annotation[entrez][0]][0]+"\t")
+                output.write(orpha_genes[hyb_db_annotation[entrez][0]][1]+"\thttp://www.orpha.net/consor/cgi-bin/Disease_Search_Simple.php?lng=EN&Disease_Disease_Search_diseaseGroup="+orpha_genes[hyb_db_annotation[entrez][0]][0]+"&Disease_Disease_Search_diseaseType=ORPHA\n")
     output.close()
 
 if __name__ == '__main__':

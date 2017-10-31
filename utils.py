@@ -4,7 +4,9 @@ Utilitary functions do download and parse data from Orpha net
 """
 from requests import post
 from bs4 import BeautifulSoup
-
+from biomart import BiomartServer
+from lxml import etree
+from collections import defaultdict
 
 def search_orphanet(keyword, search_type='Gen'):
     """
@@ -34,3 +36,57 @@ def get_first_result(orphanet_search):
         return ''
     else:
         return first[0].a.get('href')+"\t"+first[0].a.getText()
+
+def convert_entrez_to_gene_symbol(keyword_list):
+    """
+    Convert Refseq ID to Gene Symbol and description using Biomart
+    """
+    #print("\nConverting Refseq to Gene Symbol\n")
+    server = BiomartServer( "http://mar2017.archive.ensembl.org/biomart" )
+    #server.verbose = True
+    #server.show_databases()
+    #server.show_datasets()
+
+
+    hsapiens = server.datasets['hsapiens_gene_ensembl']
+    #hsapiens.show_filters()
+    #hsapiens.show_attributes()
+
+
+    # run a search with custom filters and attributes (no header)
+    response = hsapiens.search({
+    'filters': {
+        'entrezgene': keyword_list
+    },
+    'attributes': [
+        'external_gene_name', 'description', 'entrezgene'
+    ]   
+    })
+
+    return response
+
+def load_orpha_genes(xml):
+    orpha_genes = {}
+    tree = etree.parse(xml)
+    symbols = tree.findall('//Symbol')
+    for gene in symbols:
+        orpha_genes[gene.text] = [gene.getparent().getparent().getparent().getparent().find("OrphaNumber").text, gene.getparent().getparent().getparent().getparent().find("Name").text]
+    return orpha_genes
+
+def load_hyb_db_genes(hyb):
+    hyb_db = defaultdict(list)
+    hyb_file = open(hyb).read().splitlines()
+    for line in hyb_file:
+        fields = line.split(",")
+        hyb_db[fields[10]].append(fields[11])
+        hyb_db[fields[11]].append(fields[10])
+    return hyb_db
+
+def  load_biogrid_genes(biogrid):
+    biogrid_db = defaultdict(list)
+    biogrid_file = open(biogrid).read().splitlines()
+    for line in biogrid_file:
+        fields = line.split("\t")
+        biogrid_db[fields[1]].append(fields[2])
+        biogrid_db[fields[2]].append(fields[1])
+    return biogrid_db

@@ -8,7 +8,7 @@ import utils
 def main():
 
     orpha_genes = {}
-    hyb_db = {} 
+    hyb_db = {}
     hyb_db_gene = {}
     hyb_db_annotation = {}
     biogrid_db = {}
@@ -32,7 +32,7 @@ def main():
         uplimit = i+500
         if uplimit > len(hyb_db_list):
             uplimit = len(hyb_db_list)
-    	
+
         tmp_list = hyb_db_list[i:uplimit]
         gene_symbol_list = utils.convert_entrez_to_gene_symbol(tmp_list)
         i=i+500
@@ -44,7 +44,7 @@ def main():
             entrez = line.split("\t")[2]
             hyb_db_gene[entrez] = hyb_db[entrez]
             hyb_db_annotation[entrez] = [gene,description]
-    
+
     output = open(args.output, 'w')
 
     for entrez in hyb_db_gene:
@@ -68,10 +68,10 @@ def main():
                 if hyb_inter in hyb_db_annotation:
                     output.write(hyb_db_annotation[hyb_inter][1]+"\t")
                 else:
-                    output.write("No hit\t")  
+                    output.write("No hit\t")
                 output.write(orpha_genes[hyb_db_annotation[entrez][0]][0]+"\t")
                 output.write(orpha_genes[hyb_db_annotation[entrez][0]][1]+"\thttp://www.orpha.net/consor/cgi-bin/Disease_Search_Simple.php?lng=EN&Disease_Disease_Search_diseaseGroup="+orpha_genes[hyb_db_annotation[entrez][0]][0]+"&Disease_Disease_Search_diseaseType=ORPHA\n")
-    
+
     output.close()
 
 if __name__ == '__main__':
